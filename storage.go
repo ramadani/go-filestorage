@@ -20,8 +20,7 @@ func (s *Storage) PutFile(dir string, file *multipart.FileHeader) error {
 // PutFileAs with costume filename to the storage
 func (s *Storage) PutFileAs(dir string, file *multipart.FileHeader, filename string) error {
 	if !s.Exists(dir) {
-		err := s.makeDir(dir)
-
+		err := s.MakeDir(dir)
 		if err != nil {
 			return err
 		}
@@ -54,7 +53,7 @@ func (s *Storage) Exists(path string) bool {
 	fullPath := fmt.Sprintf("%s/%s", s.config.Root, path)
 	_, err := os.Stat(fullPath)
 
-	return os.IsExist(err)
+	return !os.IsNotExist(err)
 }
 
 // URL to get url of file
@@ -62,8 +61,8 @@ func (s *Storage) URL(path string) string {
 	return fmt.Sprintf("%s/%s", s.config.URL, path)
 }
 
-// Make a new directory based on dir and config root dir
-func (s *Storage) makeDir(dir string) error {
+// MakeDir  make a new directory based on dir and config root dir
+func (s *Storage) MakeDir(dir string) error {
 	dirPath := fmt.Sprintf("%s/%s", s.config.Root, dir)
 
 	return os.MkdirAll(dirPath, 0755)

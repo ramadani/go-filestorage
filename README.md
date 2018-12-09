@@ -39,5 +39,22 @@ It will be create a new `user` dir if not exists and then store the file into th
 localStorage.PutFileAs("user", file, "user1.jpeg")
 ```
 
+**Check file or directory is exists or not**
+
+```go
+isFileExists := localStorage.Exists("user/user1.jpeg")
+// true
+
+isDirExists := localStorage.Exists("product")
+// false
+```
+
+**Get url of the file**
+
+```go
+url := localStorage.URL("user/user1.jpeg")
+// http://yourdomain.com/public/user/user1.jpeg
+```
+
 ## **License**
 The **go-filestorage** is an open-source software licensed under the [MIT License](LICENSE.md).
